@@ -45,8 +45,19 @@ func returnErrorOn10(i int) (int, error) {
 	return 10, nil
 }
 
+func willThisPanic() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("I panicked, but i'm okay")
+		}
+	}()
+	panic("I panicked")
+}
+
 func main() {
 	fmt.Println("Hello world")
+
+	go willThisPanic()
 
 	someInt := 10
 	pointers(&someInt)
